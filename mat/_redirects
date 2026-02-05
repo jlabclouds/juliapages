@@ -1,0 +1,13 @@
+site = "juliapages-math"
+publish = "build"
+
+[build]
+command = "julia --project -e 'using PlutoPages; PlutoPages.build()'"
+
+[env]
+JULIA_NUM_THREADS = "4"
+
+[[redirects]]
+from = "/*"
+to = "/"
+status = 200

@@ -1,0 +1,47 @@
+# .gitignore for Julia/PlutoPages projects
+
+# Build output
+build/
+dist/
+*.o
+*.so
+*.a
+*.lib
+*.dll
+*.dylib
+
+# Pluto-specific
+.pluto/
+pluto_state_*.jl
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.vscode-server/
+
+# Julia-specific
+Manifest.toml
+deps/deps.jl
+__precompile__.jl
+
+# Python/IJulia
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Environment
+.env
+.env.local
+venv/
+env/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+*.out

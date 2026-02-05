@@ -1,0 +1,37 @@
+# Mathematics Learning Tracks - Configuration File
+
+# Site metadata
+site_title = "Mathematics Learning Tracks"
+site_description = "Comprehensive interactive learning platform for mathematics"
+site_url = "https://yourdomain.com"
+
+# Build settings
+output_dir = "build"
+minify = true
+optimize_images = true
+
+# Julia settings
+julia_version = "1.9"
+threads = 4
+
+# Track order in navigation
+track_order = [
+    "algebra",
+    "analysis",
+    "geometry-topology",
+    "scientific-computation",
+    "applied-mathematics"
+]
+
+# Theme settings
+theme = "light"
+accent_color = "#667eea"
+secondary_color = "#764ba2"
+
+# Analytics (optional)
+google_analytics = ""
+matomo_site_id = ""
+
+# Social metadata
+twitter_handle = ""
+github_repo = ""

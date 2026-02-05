@@ -1,0 +1,4 @@
+[deps]
+PlutoPages = "af6e81bc-8773-4e6e-b257-c21b4a0aa206"
+PlutoUI = "7f904dfe-b85b-4ace-9921-02746e3d8142"
+Pluto = "c3e4b0f8-55cb-11ea-2926-15256bba5781"
