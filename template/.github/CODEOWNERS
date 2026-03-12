@@ -1,0 +1,11 @@
+# TemplatePackage Code Owners
+
+# All files
+* @username
+
+# Documentation
+/docs/ @username
+*.md @username
+
+# Tests
+/test/ @username

@@ -1,0 +1,85 @@
+/* Syntax highlighting for code blocks */
+
+/* General background */
+.hljs {
+    background: #2c3e50;
+    color: #ecf0f1;
+}
+
+/* Keywords */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+    color: #c0392b;
+}
+
+/* Strings */
+.hljs-string,
+.hljs-title,
+.hljs-attr,
+.hljs-bullet,
+.hljs-symbol {
+    color: #27ae60;
+}
+
+/* Numbers */
+.hljs-number,
+.hljs-code {
+    color: #e74c3c;
+}
+
+/* Built-in functions */
+.hljs-built_in,
+.hljs-builtin-name {
+    color: #3498db;
+}
+
+/* Functions */
+.hljs-function,
+.hljs-name {
+    color: #f39c12;
+}
+
+/* Attributes */
+.hljs-attr,
+.hljs-variable,
+.hljs-title {
+    color: #8e44ad;
+}
+
+/* Comments */
+.hljs-comment,
+.hljs-quote {
+    color: #7f8c8d;
+}
+
+/* Emphasis */
+.hljs-emphasis {
+    font-style: italic;
+}
+
+.hljs-strong {
+    font-weight: bold;
+}
+
+/* Julia-specific syntax highlighting */
+.language-julia {
+    color: #dcdcdc;
+}
+
+/* Function definitions */
+.hljs-function > .hljs-keyword {
+    color: #c0392b;
+}
+
+/* Type annotations */
+.hljs-type {
+    color: #3498db;
+}
+
+/* Macros */
+.hljs-meta {
+    color: #f39c12;
+}

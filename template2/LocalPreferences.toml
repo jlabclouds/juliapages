@@ -1,0 +1,19 @@
+name = "MyTemplate.jl"
+repos = "https://github.com/yourusername/MyTemplate.jl"
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+
+# Brief description
+description = "A professional Julia documentation template combining PlutoPages, Genie Framework, and Documenter.jl"
+
+# GitHub topics for discoverability  
+keywords = ["julia", "documentation", "pluto", "genie", "documenter", "web-framework"]
+
+# Categories
+categories = ["documentation", "web"]
+
+# Version
+version = "0.1.0"
+
+# Julia version requirement
+julia = "1.9"

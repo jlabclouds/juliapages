@@ -1,0 +1,51 @@
+# Compiled source #
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/deps/deps.jl
+
+# Packages #
+*.jl
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Pyre type checker
+.pyre/
+
+# IDE #
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Documentation build #
+/docs/build/
+/docs/site/
+
+# Testing #
+/coverage/
+/.coverage
+/htmlcov/
+
+# Environment #
+.env
+Manifest.toml

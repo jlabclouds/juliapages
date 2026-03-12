@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        version:
+          - '1.10'
+          - '1.11'
+          - 'nightly'
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: ${{ matrix.version }}
+          arch: x64
+      
+      - uses: julia-actions/cache@v1
+      
+      - uses: julia-actions/julia-buildpkg@v1
+      
+      - uses: julia-actions/julia-runtest@v1
+      
+      - uses: julia-actions/julia-processcoverage@v1
+      
+      - uses: codecov/codecov-action@v3
+        with:
+          file: ./lcov.info
+
+  lint:
+    name: Lint and Format Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.10'
+      
+      - name: Install JuliaFormatter
+        run: |
+          julia -e "using Pkg; Pkg.add(\"JuliaFormatter\")"
+      
+      - name: Check formatting
+        run: |
+          julia -e "using JuliaFormatter; @show format(\"src\"; overwrite=false, verbose=true, diff=true); format(\"test\"; overwrite=false, verbose=true, diff=true)"
+
+  docs:
+    name: Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: julia-actions/setup-julia@v1
+        with:
+          version: '1.10'
+      
+      - name: Build documentation
+        run: |
+          cd docs
+          julia --project=. -e "using Pkg; Pkg.instantiate(); include(\"make.jl\")"

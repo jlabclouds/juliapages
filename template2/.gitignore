@@ -1,0 +1,62 @@
+# Git ignore file for MyTemplate
+
+# Julia-specific
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+/deps/deps.jl
+/docs/build/
+/docs/site/
+/build/
+
+# Compiled packages
+/precompiled/
+Manifest.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python/Virtual environments
+__pycache__/
+.venv/
+venv/
+env/
+
+# Temporary files
+*.bak
+*.backup
+*.tmp
+*.log
+
+# Environment
+.env
+.env.local
+
+# Node
+node_modules/
+.yarn
+package-lock.json
+
+# Build outputs
+dist/
+build/
+out/
+
+# Test coverage
+coverage/
+.coverage
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Project-specific
+data/
+cache/
+*.csv
+*.xlsx

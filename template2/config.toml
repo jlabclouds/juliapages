@@ -1,0 +1,85 @@
+# MyTemplate Configuration
+
+[server]
+# Server host address
+host = "0.0.0.0"
+
+# Server port
+port = 8000
+
+# Enable async mode
+async = false
+
+# Server timeout in seconds
+timeout = 30
+
+[docs]
+# Documentation builder
+builder = "documenter.jl"
+
+# Output directory for built docs
+output_dir = "docs/build"
+
+# Enable warnings as errors
+strict = false
+
+[site]
+# Site title
+title = "MyTemplate"
+
+# Site subtitle
+subtitle = "A Julia Documentation Template"
+
+# Current version
+version = "0.1.0"
+
+# Author name
+author = "Your Name"
+
+# GitHub repository URL
+github_url = "https://github.com/yourusername/MyTemplate"
+
+# Site theme
+theme = "light"
+
+# Enable analytics
+analytics = false
+
+# Analytics tracking ID (if enabled)
+analytics_id = ""
+
+[features]
+# Enable Pluto notebooks
+enable_pluto = true
+
+# Enable API documentation
+enable_docs = true
+
+# Enable custom search
+enable_search = false
+
+# Enable comments
+enable_comments = false
+
+[build]
+# Clean before building
+clean = true
+
+# Exclude patterns from build
+exclude = [
+    "*.swp",
+    "*.swo",
+    ".DS_Store",
+    "node_modules",
+    ".git"
+]
+
+[deploy]
+# Deployment method: "github-pages", "netlify", "vercel", "heroku", "custom"
+method = "github-pages"
+
+# GitHub Pages branch
+gh_pages_branch = "gh-pages"
+
+# Base URL for deployment
+base_url = "https://yourusername.github.io/MyTemplate"
