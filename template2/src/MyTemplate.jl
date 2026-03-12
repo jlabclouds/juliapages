@@ -35,6 +35,7 @@ const DEFAULT_HOST = "0.0.0.0"
 
 include("core.jl")
 include("utils.jl")
+include("ai_help.jl")
 include("routes.jl")
 
 """

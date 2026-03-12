@@ -159,16 +159,51 @@ MyTemplate.serve()</code></pre>
 
     # API Status endpoint
     route("/api/health", method=GET) do
-        Genie.Responses.text(JSON.json(Dict("status" => "ok", "version" => "0.1.0")), "application/json")
+        JSON.json(Dict("status" => "ok", "version" => "0.1.0"))
     end
 
     # Return version information
     route("/api/version", method=GET) do
-        Genie.Responses.text(JSON.json(Dict(
+        JSON.json(Dict(
             "name" => "MyTemplate",
             "version" => "0.1.0",
             "julia_version" => string(VERSION)
-        )), "application/json")
+        ))
+    end
+
+    # AI Help endpoint - Process user queries with AI
+    route("/api/ai-help", method=POST) do
+        try
+            request_data = Genie.Requests.jsonpayload()
+            user_query = get(request_data, "query", "")
+            page_context = get(request_data, "context", "")
+            
+            # Process the help request
+            response = process_help_request(user_query, page_context)
+            
+            JSON.json(response)
+        catch e
+            error_response = Dict(
+                "success" => false,
+                "error" => "Failed to process help request",
+                "details" => string(e)
+            )
+            HTTP.Response(400, JSON.json(error_response))
+        end
+    end
+
+    # AI Help configuration endpoint - Return current config to frontend
+    route("/api/ai-help/config", method=GET) do
+        config = get_ai_help_config()
+        response = Dict(
+            "ui_style" => config["help_ui_style"],
+            "ui_position" => config["help_ui_position"],
+            "ui_theme" => config["help_ui_theme"],
+            "help_scope" => config["help_scope"],
+            "help_enabled" => config["help_enabled"],
+            "ai_provider" => config["ai_provider"]
+        )
+        JSON.json(response)
     end
 
     # Static files - serve CSS

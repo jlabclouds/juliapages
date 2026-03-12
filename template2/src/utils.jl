@@ -198,6 +198,7 @@ function get_base_template()
         <title>::TITLE:: - MyTemplate</title>
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="/css/highlight.css">
+        <link rel="stylesheet" href="/css/ai-help.css">
     </head>
     <body>
         <div class="mobile-header">
@@ -214,6 +215,7 @@ function get_base_template()
             </div>
         </div>
         <script src="/js/main.js"></script>
+        <script src="/js/ai-help.js"></script>
     </body>
     </html>
     """
