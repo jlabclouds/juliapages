@@ -195,5 +195,72 @@ MyTemplate.serve()</code></pre>
         end
     end
 
+    # ============================================
+    # AI Help Routes
+    # ============================================
+
+    # AI Help UI page
+    route("/ai-help", method=GET) do
+        render_aihelp_page()
+    end
+
+    # AI Query API
+    route("/api/ai/query", method=POST) do
+        try
+            body = JSON.parse(String(request.body))
+            response = handle_query(body)
+            Genie.Responses.text(response, "application/json")
+        catch e
+            Genie.Responses.text(JSON.json(Dict(:error => string(e))), "application/json"; status=500)
+        end
+    end
+
+    # Session info API
+    route("/api/ai/session/:id", method=GET) do
+        conversation_id = string(payload(:id))
+        response = handle_session_info(conversation_id)
+        Genie.Responses.text(response, "application/json")
+    end
+
+    # Configuration API
+    route("/api/ai-help/config", method=GET) do
+        response = handle_config()
+        Genie.Responses.text(response, "application/json")
+    end
+
+    # Search docs API
+    route("/api/ai/search", method=POST) do
+        try
+            body = JSON.parse(String(request.body))
+            response = handle_search_docs(body)
+            Genie.Responses.text(response, "application/json")
+        catch e
+            Genie.Responses.text(JSON.json(Dict(:error => string(e))), "application/json"; status=500)
+        end
+    end
+
+    # Serve AI Help static files
+    route("/static/js/:filename", method=GET) do
+        filename = payload(:filename)
+        js_path = joinpath(dirname(dirname(@__FILE__)), "AIHelpUI", "static", "js", filename)
+        if isfile(js_path)
+            js_content = read(js_path, String)
+            Genie.Responses.text(js_content, "text/javascript")
+        else
+            Genie.Responses.text("/* File not found */", "text/javascript"; status=404)
+        end
+    end
+
+    route("/static/css/:filename", method=GET) do
+        filename = payload(:filename)
+        css_path = joinpath(dirname(dirname(@__FILE__)), "AIHelpUI", "static", "css", filename)
+        if isfile(css_path)
+            css_content = read(css_path, String)
+            Genie.Responses.text(css_content, "text/css")
+        else
+            Genie.Responses.text("/* File not found */", "text/css"; status=404)
+        end
+    end
+
     nothing
 end

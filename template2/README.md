@@ -5,6 +5,7 @@ A professional, production-ready Julia documentation template combining **PlutoP
 ## 🌟 Features
 
 - ✨ **Interactive Pluto Notebooks** - Run code directly in your browser
+- 🤖 **AI Research Helper** - Ask questions about your docs using OpenAI/Cohere
 - 📚 **Auto-Generated API Docs** - Powered by Documenter.jl
 - 🚀 **Fast Web Server** - Built on Genie Framework
 - 🎨 **Modern, Responsive Design** - Works on all devices
@@ -13,6 +14,7 @@ A professional, production-ready Julia documentation template combining **PlutoP
 - 🧪 **Comprehensive Examples** - Learn by doing
 - ⚙️ **Easy to Customize** - Well-organized structure
 - 🚀 **Deployment-Ready** - GitHub Actions CI/CD included
+- 🐳 **Docker Support** - Containerized development & deployment
 
 ## 📋 Quick Start
 
@@ -33,6 +35,29 @@ MyTemplate.serve()
 ```
 
 Open http://localhost:8000 in your browser.
+
+## 🤖 AI Research Helper (NEW!)
+
+Access an intelligent research assistant that answers questions about your documentation:
+
+```bash
+# 1. Get API keys (OpenAI, Cohere, Tavily)
+# 2. Configure .env file
+# 3. Start the server
+source .env
+julia --project server.jl
+
+# 4. Visit http://localhost:8000/ai-help
+```
+
+**Features:**
+- 🧠 Multi-provider LLM support (OpenAI, Cohere)
+- 🔍 Automatic documentation indexing
+- 🌐 Optional web search via Tavily
+- 💬 Persistent conversation history
+- 📌 Source citations
+
+For detailed setup: [AI_HELP_SETUP.md](AI_HELP_SETUP.md)
 
 ## 📁 Project Structure
 

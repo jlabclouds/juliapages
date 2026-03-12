@@ -29,6 +29,7 @@ function get_navigation_structure()
     [
         (title = "Home", path = "/", icon = "home"),
         (title = "Docs", path = "/docs", icon = "book"),
+        (title = "🤖 AI Help", path = "/ai-help", icon = "sparkles"),
         (title = "Tutorials", path = "/tutorials", icon = "graduation-cap"),
         (title = "Examples", path = "/examples", icon = "code"),
         (title = "API Reference", path = "/api", icon = "cube"),

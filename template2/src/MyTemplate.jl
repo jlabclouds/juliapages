@@ -26,6 +26,7 @@ using Genie, Genie.Router, Genie.Requests, Genie.Responses
 using Documenter
 using HTTP
 using JSON
+using Dates
 
 export serve, build_docs, run_dev_server
 
@@ -36,6 +37,13 @@ const DEFAULT_HOST = "0.0.0.0"
 include("core.jl")
 include("utils.jl")
 include("routes.jl")
+
+# Include AIHelpMe module
+include("AIHelpMe/AIHelpMe.jl")
+using .AIHelpMe
+
+# Include AIHelpUI module
+include("AIHelpUI/routes.jl")
 
 """
     serve(; host=DEFAULT_HOST, port=DEFAULT_PORT)

@@ -1,0 +1,18 @@
+# Local Development Configuration
+
+[ai]
+providers = ["openai", "cohere"]
+primary_provider = "openai"
+search_enabled = true
+context_max_tokens = 2048
+max_doc_chunks = 5
+docs_path = "./docs/src"
+
+[server]
+port = 8000
+host = "0.0.0.0"
+debug = true
+
+[session]
+ttl = 3600
+cache_enabled = true

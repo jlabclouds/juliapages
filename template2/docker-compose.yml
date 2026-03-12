@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  # Main web server with Genie and AIHelpMe
+  web:
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile
+    container_name: mytemplate-web
+    ports:
+      - "8000:8000"
+    environment:
+      # API Keys
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      
+      # Configuration
+      - APP_ENV=docker
+      - JULIA_PROJECT=/app
+      - JULIA_DEPOT_PATH=/root/.julia
+    volumes:
+      - .:/app
+      - julia_cache:/root/.julia
+      - julia_artifacts:/root/.julia/artifacts
+    command: julia --project=/app server.jl
+    restart: unless-stopped
+    networks:
+      - mytemplate-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/ai-help/config"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional: Redis for session cache (future enhancement)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: mytemplate-redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - mytemplate-network
+
+volumes:
+  julia_cache:
+    driver: local
+  julia_artifacts:
+    driver: local
+
+networks:
+  mytemplate-network:
+    driver: bridge
