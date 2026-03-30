@@ -239,6 +239,9 @@ main {
     background-color: var(--light-bg);
     border: 1px solid var(--border-color);
     transition: var(--transition);
+    display: block;
+    text-decoration: none;
+    color: inherit;
 }
 
 .feature-card:hover {

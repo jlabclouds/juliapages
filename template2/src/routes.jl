@@ -25,10 +25,10 @@ function setup_routes()
         <section class="features">
             <h2>Features</h2>
             <div class="feature-grid">
-                <div class="feature-card">
+                <a href="/notebooks" class="feature-card">
                     <h3>📚 Interactive Notebooks</h3>
                     <p>Explore and run interactive Pluto notebooks directly in your browser</p>
-                </div>
+                </a>
                 <div class="feature-card">
                     <h3>📖 API Documentation</h3>
                     <p>Auto-generated API docs powered by Documenter.jl</p>
@@ -155,6 +155,114 @@ MyTemplate.serve()</code></pre>
             <p>Explore example notebooks and use cases.</p>
         </div>
         """
+    end
+
+    # Notebooks landing page
+    route("/notebooks") do
+        notebooks_content = """
+        <div class="notebooks-container">
+            <h1>📚 Interactive Notebooks</h1>
+            <p class="subtitle">Explore interactive Pluto notebooks and learn by doing</p>
+            
+            <div class="notebooks-grid">
+                <div class="notebook-card">
+                    <h3>Welcome Guide</h3>
+                    <p>Start here! Introduction to MyTemplate and key concepts of interactive notebooks.</p>
+                    <a href="/notebooks/index" class="btn btn-primary">Open Notebook</a>
+                </div>
+                
+                <div class="notebook-card">
+                    <h3>Getting Started</h3>
+                    <p>Step-by-step guide to installing, configuring, and running MyTemplate on your machine.</p>
+                    <a href="/notebooks/getting-started" class="btn btn-primary">Open Notebook</a>
+                </div>
+                
+                <div class="notebook-card">
+                    <h3>Data Visualization</h3>
+                    <p>Explore interactive data visualization examples using Plots.jl and StatsPlots.jl.</p>
+                    <a href="/notebooks/visualization" class="btn btn-primary">Open Notebook</a>
+                </div>
+            </div>
+            
+            <div class="notebooks-info">
+                <h2>About Pluto Notebooks</h2>
+                <p>Pluto is a reactive environment for Julia. All cells are reactive, so whenever you change a variable, Pluto automatically re-runs the cells that depend on it. This makes it an ideal tool for teaching, learning, and exploring data.</p>
+                <p><a href="https://plutojl.org/" target="_blank">Learn more about Pluto →</a></p>
+            </div>
+        </div>
+        """
+        
+        html = get_base_template()
+        html = replace(html, "::TITLE::" => "Interactive Notebooks")
+        html = replace(html, "::SIDEBAR::" => get_sidebar_html())
+        html = replace(html, "::CONTENT::" => notebooks_content)
+        html = replace(html, "::FOOTER::" => get_footer_html())
+        
+        html
+    end
+
+    # Individual notebook pages
+    route("/notebooks/:notebook", method=GET) do
+        notebook_name = string(payload(:notebook))
+        notebook_path = joinpath(dirname(dirname(@__FILE__)), "..", "pages", "$(notebook_name).pluto.jl")
+        
+        if isfile(notebook_path)
+            notebook_content = read(notebook_path, String)
+            
+            # Create readable title from notebook name
+            title_map = Dict(
+                "index" => "Welcome Guide",
+                "getting-started" => "Getting Started",
+                "visualization" => "Data Visualization"
+            )
+            
+            title = get(title_map, notebook_name, titlecase(replace(notebook_name, "-" => " ")))
+            
+            page_content = """
+            <div class="notebook-viewer">
+                <div class="notebook-header">
+                    <h1>$title</h1>
+                    <p class="notebook-meta">Pluto Interactive Notebook</p>
+                </div>
+                
+                <div class="notebook-info-box">
+                    <p>This is a Pluto notebook. To interact with this notebook, download it and open it with Pluto:</p>
+                    <pre><code>using Pluto
+Pluto.run()</code></pre>
+                    <p><a href="/pages/$(notebook_name).pluto.jl" download>Download Notebook</a></p>
+                </div>
+                
+                <div class="notebook-preview">
+                    <h2>Notebook Preview</h2>
+                    <pre><code>$notebook_content</code></pre>
+                </div>
+            </div>
+            """
+            
+            html = get_base_template()
+            html = replace(html, "::TITLE::" => title)
+            html = replace(html, "::SIDEBAR::" => get_sidebar_html())
+            html = replace(html, "::CONTENT::" => page_content)
+            html = replace(html, "::FOOTER::" => get_footer_html())
+            
+            html
+        else
+            page_content = """
+            <div class="error-container">
+                <h1>Notebook Not Found</h1>
+                <p>The notebook "$notebook_name" could not be found.</p>
+                <a href="/notebooks" class="btn btn-primary">Back to Notebooks</a>
+            </div>
+            """
+            
+            html = get_base_template()
+            html = replace(html, "::TITLE::" => "Notebook Not Found")
+            html = replace(html, "::SIDEBAR::" => get_sidebar_html())
+            html = replace(html, "::CONTENT::" => page_content)
+            html = replace(html, "::FOOTER::" => get_footer_html())
+            
+            Genie.Responses.html(html; status=404)
+        end
     end
 
     # API Status endpoint

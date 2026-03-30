@@ -21,15 +21,25 @@ A professional, production-ready Julia documentation template combining **PlutoP
 ```bash
 git clone https://github.com/yourusername/MyTemplate.git
 cd MyTemplate
-julia --project
+julia --project -e 'using Pkg; Pkg.instantiate()'
 ```
 
 ### Start the Server
 
+**Option 1: Via Command Line (Recommended)**
+```bash
+julia --project -e 'using MyTemplate; MyTemplate.serve()'
+```
+
+**Option 2: From Julia REPL**
+```bash
+julia --project
+```
+
+Then in the Julia REPL:
 ```julia
-] instantiate
-using MyTemplate
-MyTemplate.serve()
+julia> using MyTemplate
+julia> MyTemplate.serve()
 ```
 
 Open http://localhost:8000 in your browser.
@@ -73,6 +83,16 @@ MyTemplate/
 
 ### Running the Web Server
 
+**Command Line**
+```bash
+# Start on default port (8000)
+julia --project -e 'using MyTemplate; MyTemplate.serve()'
+
+# Or specify a custom port
+julia --project -e 'using MyTemplate; MyTemplate.serve(port=3000)'
+```
+
+**From Julia REPL**
 ```julia
 using MyTemplate
 
@@ -81,13 +101,15 @@ MyTemplate.serve()
 
 # Or specify a custom port
 MyTemplate.serve(port=3000)
-
-# Development mode with auto-reload
-MyTemplate.run_dev_server()
 ```
 
 ### Building Documentation
 
+```bash
+julia --project -e 'using MyTemplate; MyTemplate.build_docs()'
+```
+
+Or from the Julia REPL:
 ```julia
 using MyTemplate
 MyTemplate.build_docs()
@@ -97,8 +119,8 @@ Output will be in `docs/build/`
 
 ### Running Tests
 
-```julia
-] test
+```bash
+julia --project -e 'using Pkg; Pkg.test()'
 ```
 
 ## 📖 Documentation
@@ -189,19 +211,25 @@ Contributions are welcome! Please:
 ## 🐛 Troubleshooting
 
 ### Port Already in Use
-```julia
-MyTemplate.serve(port=8001)
+```bash
+julia --project -e 'using MyTemplate; MyTemplate.serve(port=8001)'
 ```
 
-### Module Not Found
+### Module Not Found or Dependencies Not Loaded
 ```bash
-julia --project
-] dev .
+julia --project -e 'using Pkg; Pkg.instantiate()'
+julia --project -e 'using Pkg; Pkg.resolve()'
 ```
 
 ### Clear Compilation Cache
 ```bash
 rm -rf ~/.julia/compiled
+```
+
+### File Watching Warnings (inotify)
+If you see warnings about inotify capacity, increase the system limit:
+```bash
+echo 524288 | sudo tee /proc/sys/fs/inotify/max_user_watches
 ```
 
 ## 📄 License
